@@ -36,6 +36,14 @@ Add-on for Meteor that adds modules, commands and other useful stuff for primary
     </picture>
 </a>
 
+<a href="https://www.star-history.com/?repos=zgoly%2Fmeteorist">
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=zgoly/meteorist&theme=dark">
+        <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=zgoly/meteorist">
+        <img alt="Star History Chart" src="https://api.star-history.com/image?repos=zgoly/meteorist">
+    </picture>
+</a>
+
 <div align="center">
     <a href="https://meteorist.pages.dev" target="_blank">
         <img align="center" height="64px" alt="Meteorist Download" src="website/button.svg">
