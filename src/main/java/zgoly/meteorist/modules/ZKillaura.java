@@ -291,10 +291,10 @@ public class ZKillaura extends Module {
         if (hitResult == null || hitResult.getType() != HitResult.Type.ENTITY) return;
 
         Entity entity = ((EntityHitResult) hitResult).getEntity();
-        LivingEntity livingEntity = (LivingEntity) entity;
+        LivingEntity livingEntity = entity instanceof LivingEntity ? (LivingEntity) entity : null;
 
         // Using labeled breaks instead of returns so the code can run in one tick, but I think there should be a simpler way to do this
-        if (shieldMode.get() == ShieldMode.Break) {
+        if (shieldMode.get() == ShieldMode.Break && livingEntity != null) {
             if (shieldState == ShieldState.Idle && livingEntity.isBlocking()) {
                 FindItemResult axe = InvUtils.findInHotbar(stack -> stack.getItem() instanceof AxeItem);
                 if (axe.found()) {
@@ -363,7 +363,7 @@ public class ZKillaura extends Module {
         if (currHitSpeedMode != HitSpeedMode.None && (mc.player.getAttackStrengthScale(hitSpeed) * 17.0F) < 16)
             return;
 
-        mc.gameMode.attack(mc.player, livingEntity);
+        mc.gameMode.attack(mc.player, entity);
         if (swingHand.get()) mc.player.swing(InteractionHand.MAIN_HAND);
 
         if (currOnFallMode == OnFallMode.RandomValue) {
@@ -393,9 +393,9 @@ public class ZKillaura extends Module {
     }
 
     private boolean entityCheck(Entity entity) {
-        if (!(entity instanceof LivingEntity livingEntity)) return false;
         if (entity == mc.player || entity == mc.getCameraEntity()) return false;
-        if (livingEntity.isDeadOrDying() || !entity.isAlive()) return false;
+        if (!entity.isAlive()) return false;
+        if (entity instanceof LivingEntity livingEntity && livingEntity.isDeadOrDying()) return false;
         if (!entities.get().contains(entity.getType())) return false;
         if (ignoreNamed.get() && entity.hasCustomName()) return false;
 

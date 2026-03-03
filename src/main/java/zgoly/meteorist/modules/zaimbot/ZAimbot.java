@@ -325,7 +325,8 @@ public class ZAimbot extends Module {
 
     private boolean entityCheck(Entity entity) {
         if (entity == mc.player || entity == mc.getCameraEntity()) return false;
-        if (!(entity instanceof LivingEntity livingEntity) || livingEntity.isDeadOrDying() || !entity.isAlive()) return false;
+        if (!entity.isAlive()) return false;
+        if (entity instanceof LivingEntity livingEntity && livingEntity.isDeadOrDying()) return false;
         if (!PlayerUtils.isWithin(entity, range.get())) return false;
         if (!entities.get().contains(entity.getType())) return false;
         if (ignoreNamed.get() && entity.hasCustomName()) return false;
